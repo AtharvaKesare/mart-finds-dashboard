@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { useCart } from "@/contexts/CartContext"
 
 interface ProductProps {
-  id: number;
+  id: string;  // Changed from number to string to match UUID from Supabase
   name: string;
   price: number;
   image: string;
