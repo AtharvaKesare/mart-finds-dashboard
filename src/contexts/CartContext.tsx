@@ -12,7 +12,7 @@ interface CartItem {
 interface CartContextType {
   items: CartItem[];
   addToCart: (product: Omit<CartItem, 'quantity'>) => void;
-  removeFromCart: (productId: string);  // Changed from number to string to match UUID
+  removeFromCart: (productId: string) => void;  // Fixed the syntax error here
   cartCount: number;
 }
 
