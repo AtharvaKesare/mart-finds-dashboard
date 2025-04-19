@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
 interface CartItem {
-  id: number;
+  id: string;  // Changed from number to string to match UUID from Supabase
   name: string;
   price: number;
   image: string;
@@ -12,7 +12,7 @@ interface CartItem {
 interface CartContextType {
   items: CartItem[];
   addToCart: (product: Omit<CartItem, 'quantity'>) => void;
-  removeFromCart: (productId: number) => void;
+  removeFromCart: (productId: string);  // Changed from number to string to match UUID
   cartCount: number;
 }
 
@@ -35,7 +35,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const removeFromCart = (productId: number) => {
+  const removeFromCart = (productId: string) => {  // Changed from number to string to match UUID
     setItems(currentItems => currentItems.filter(item => item.id !== productId));
   };
 
