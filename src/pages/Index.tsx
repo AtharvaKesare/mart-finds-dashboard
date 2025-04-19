@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { ProductCard } from "@/components/ProductCard"
 import { Input } from "@/components/ui/input"
-import { ShoppingCart, Search } from "lucide-react"
+import { Search } from "lucide-react"
+import { CartDrawer } from "@/components/CartDrawer"
 import { useCart } from "@/contexts/CartContext"
 
 const products = [
@@ -40,7 +41,6 @@ const products = [
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const { cartCount } = useCart();
 
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -65,14 +65,7 @@ const Index = () => {
                   className="pl-10"
                 />
               </div>
-              <div className="relative">
-                <ShoppingCart className="h-6 w-6 text-purple-600" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
-              </div>
+              <CartDrawer />
             </div>
           </div>
         </div>
