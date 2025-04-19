@@ -15,11 +15,17 @@ export default function Auth() {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { error } = await supabase.auth.signUp({ 
+      email, 
+      password,
+      options: {
+        emailRedirectTo: window.location.origin
+      }
+    });
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success("Sign up successful! Please check your email.");
+      toast.success("Sign up successful! Please check your email to confirm.");
     }
     setLoading(false);
   };
@@ -29,7 +35,11 @@ export default function Auth() {
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      toast.error(error.message);
+      if (error.message.includes("Email not confirmed")) {
+        toast.error("Please check your email and confirm your account.");
+      } else {
+        toast.error(error.message);
+      }
     } else {
       navigate("/");
     }
